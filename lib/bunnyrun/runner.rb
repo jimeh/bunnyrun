@@ -58,28 +58,28 @@ module BunnyRun
     end
 
     def connection_opts
-      return options.url if options.url
+      return options[:url] if options[:url]
 
       {
-        host: options.host,
-        port: options.port,
-        ssl: options.ssl,
-        vhost: options.vhost,
-        user: options.user,
-        pass: options.pass
+        host: options[:host],
+        port: options[:port],
+        ssl: options[:ssl],
+        vhost: options[:vhost],
+        user: options[:user],
+        pass: options[:pass]
       }
     end
 
     def log_target
-      if options.log_target.casecmp('stdout').zero?
+      if options[:log_target].casecmp('stdout').zero?
         STDOUT
       else
-        options.log_target
+        options[:log_target]
       end
     end
 
     def log_level
-      Kernel.const_get("::Logger::#{options.log_level.upcase}")
+      Kernel.const_get("::Logger::#{options[:log_level].upcase}")
     end
   end
 end
