@@ -66,9 +66,13 @@ module BunnyRun
     end
 
     def subscribe
+      logger.info("#{self.class}: subscribing to queue \"#{queue.name}\"...")
+
       opts = { manual_ack: self.class.manual_ack }
       queue.subscribe(opts) do |delivery_info, properties, payload|
         message = Message.new(delivery_info, properties, payload)
+
+        logger.debug("#{self.class}: received message #{message}")
         perform(message)
       end
     end
