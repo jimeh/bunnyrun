@@ -1,6 +1,11 @@
 # BunnyRun
 
-Easy to use runtime for [Bunny](http://rubybunny.info/)-based AMQP consumers.
+A work in progress easy to use runtime for [Bunny](http://rubybunny.info/)-based
+AMQP consumers.
+
+## Project State
+
+Unfinished and very early days. Expect anything/everything to change.
 
 ## Features
 
