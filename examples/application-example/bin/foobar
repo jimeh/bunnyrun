@@ -1,11 +1,18 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift(File.expand_path('../../lib', File.realpath(__FILE__)))
 require 'bunnyrun'
 require 'foobar'
 
-cli = BunnyRun::CLI.new(
-  name: File.basename(__FILE__),
-  version: Foobar::VERSION
-)
+module Foobar
+  class Application < BunnyRun::Application
+    name File.basename(__FILE__)
+    usage '<options> [<path>]'
+    version Foobar::VERSION
 
-cli.run(ARGV)
+    option :log_message, 'Message to log after success', type: :string
+  end
+end
+
+Foobar::Application.run(argv: ARGV)

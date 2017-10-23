@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bunnyrun'
 
 module Foobar
@@ -15,6 +17,7 @@ module Foobar
 
       publish('ping-pong', 'PONG', routing_key: 'pong')
       message.ack
+      logger.info
     end
   end
 end
