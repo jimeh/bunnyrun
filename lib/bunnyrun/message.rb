@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BunnyRun
   class Message
     attr_reader :delivery_info
