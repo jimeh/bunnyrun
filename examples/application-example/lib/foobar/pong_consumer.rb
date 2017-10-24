@@ -18,8 +18,8 @@ module Foobar
       publish('ping-pong', 'PING', routing_key: 'ping')
       message.ack
 
-      return unless options[:success_message]
-      logger.info("#{self.class}: #{options[:success_message]}")
+      return unless options.success_message
+      logger.info("#{self.class}: #{options.success_message}")
     end
   end
 end
