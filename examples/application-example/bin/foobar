@@ -5,14 +5,4 @@ $LOAD_PATH.unshift(File.expand_path('../../lib', File.realpath(__FILE__)))
 require 'bunnyrun'
 require 'foobar'
 
-module Foobar
-  class Application < BunnyRun::Application
-    name File.basename(__FILE__)
-    usage '<options> [<path>]'
-    version Foobar::VERSION
-
-    option :log_message, 'Message to log after success', type: :string
-  end
-end
-
 Foobar::Application.run(argv: ARGV)
