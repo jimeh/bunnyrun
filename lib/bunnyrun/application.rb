@@ -103,28 +103,35 @@ module BunnyRun
       parser.opt :url, 'Connection string ' \
                        '(example: "amqp://guest:guest@127.0.0.1:5672/vhost")',
                  short: 'U', type: :string,
-                 default: ENV['RABBITMQ_URL'] || nil
+                 default: ENV.fetch('RABBITMQ_URL', nil)
+
       parser.opt :host, 'Host',
                  short: 'H', type: :string,
-                 default: ENV['RABBITMQ_HOST'] || '127.0.0.1'
+                 default: ENV.fetch('RABBITMQ_HOST', '127.0.0.1')
+
       parser.opt :port, 'Port',
                  short: 'P', type: :int,
-                 default: (ENV['RABBITMQ_PORT'] || 5672).to_i
+                 default: ENV.fetch('RABBITMQ_PORT', '5672').to_i
+
       parser.opt :ssl, 'Connect using SSL',
                  short: 's', type: :bool,
                  default: trufy?(ENV.fetch('RABBITMQ_SSL', false))
+
       parser.opt :vhost, 'Virtual host',
                  short: 'V', type: :string,
-                 default: ENV['RABBITMQ_VHOST'] || '/'
+                 default: ENV.fetch('RABBITMQ_VHOST', '/')
+
       parser.opt :user, 'Username',
                  short: 'u', type: :string,
-                 default: ENV['RABBITMQ_USER'] || 'guest'
+                 default: ENV.fetch('RABBITMQ_USER', 'guest')
+
       parser.opt :pass, 'Password',
                  short: 'p', type: :string,
-                 default: ENV['RABBITMQ_PASS'] || 'guest'
+                 default: ENV.fetch('RABBITMQ_PASS', 'guest')
+
       parser.opt :prefetch, 'Default prefetch count',
                  short: :none, type: :int,
-                 default: (ENV['RABBITMQ_PREFETCH'] || 1).to_i
+                 default: ENV.fetch('RABBITMQ_PREFETCH', 1).to_i
 
       parser.conflicts :url, :host
       parser.conflicts :url, :port
@@ -139,16 +146,19 @@ module BunnyRun
 
       parser.opt :log_target, 'Log target, file path or STDOUT',
                  short: 't', type: :string,
-                 default: ENV['LOG_TARGET'] || 'STDOUT'
+                 default: ENV.fetch('LOG_TARGET', 'STDOUT')
+
       parser.opt :log_level, 'Log level (debug, info, warn, error, fatal)',
                  short: 'l', type: :string,
-                 default: ENV['LOG_LEVEL'] || 'info'
+                 default: ENV.fetch('LOG_LEVEL', 'info')
+
       parser.opt :bunny_log_target, 'Log target used by Bunny',
                  short: :none, type: :string,
-                 default: ENV['BUNNY_LOG_TARGET'] || 'STDOUT'
+                 default: ENV.fetch('BUNNY_LOG_TARGET', 'STDOUT')
+
       parser.opt :bunny_log_level, 'Log level used by Bunny',
                  short: :none, type: :string,
-                 default: ENV['BUNNY_LOG_LEVEL'] || 'warn'
+                 default: ENV.fetch('BUNNY_LOG_LEVEL', 'warn')
     end
 
     def define_application_options(parser)

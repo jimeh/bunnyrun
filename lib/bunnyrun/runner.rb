@@ -34,11 +34,14 @@ module BunnyRun
     end
 
     def logger
-      @logger ||= begin
-        logger = Logger.new(log_target)
-        logger.level = log_level
-        logger
-      end
+      @logger ||= create_logger(options.log_target, options.log_level)
+    end
+
+    def bunny_logger
+      @bunny_logger ||= create_logger(
+        options.bunny_log_target,
+        options.bunny_log_level
+      )
     end
 
     private
@@ -52,34 +55,39 @@ module BunnyRun
         connection: connection,
         publish_channel: publish_channel,
         default_prefetch: options.prefetch,
+        options: options,
         logger: logger
       )
+
       consumer.start
     end
 
     def connection_opts
-      return options[:url] if options[:url]
+      return options.url if options.url
 
       {
-        host: options[:host],
-        port: options[:port],
-        ssl: options[:ssl],
-        vhost: options[:vhost],
-        user: options[:user],
-        pass: options[:pass]
+        host: options.host,
+        port: options.port,
+        ssl: options.ssl,
+        vhost: options.vhost,
+        user: options.user,
+        pass: options.pass,
+        logger: bunny_logger
       }
     end
 
-    def log_target
-      if options[:log_target].casecmp('stdout').zero?
-        STDOUT
-      else
-        options[:log_target]
+    def create_logger(target, level)
+      Logger.new(normalize_log_target(target)).tap do |l|
+        l.level = Kernel.const_get("::Logger::#{level.upcase}")
       end
     end
 
-    def log_level
-      Kernel.const_get("::Logger::#{options[:log_level].upcase}")
+    def normalize_log_target(input)
+      if input.casecmp('stdout').zero?
+        STDOUT
+      else
+        input
+      end
     end
   end
 end

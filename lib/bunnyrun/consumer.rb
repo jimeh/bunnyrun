@@ -5,6 +5,7 @@ module BunnyRun
     attr_reader :connection
     attr_reader :publish_channel
     attr_reader :default_prefetch
+    attr_reader :options
     attr_reader :logger
 
     class << self
@@ -52,6 +53,7 @@ module BunnyRun
       @connection = opts[:connection]
       @publish_channel = opts[:publish_channel]
       @default_prefetch = opts[:default_prefetch]
+      @options = opts[:options]
       @logger = opts[:logger]
     end
 
