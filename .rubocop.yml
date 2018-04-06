@@ -21,3 +21,6 @@ Metrics/ModuleLength:
 RSpec/FilePath:
   Exclude:
     - 'spec/lib/bunnyrun_spec.rb'
+
+RSpec/MultipleExpectations:
+  Max: 2

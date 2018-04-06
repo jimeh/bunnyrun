@@ -17,6 +17,11 @@ module BunnyRun
       delivery_info.channel
     end
 
+    def acked?
+      return unless manual_ack?
+      @acked
+    end
+
     def ack
       channel.ack(delivery_tag)
       @acked = true
