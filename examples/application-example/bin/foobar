@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift(File.expand_path('../../lib', File.realpath(__FILE__)))
-require 'bunnyrun'
+$LOAD_PATH.unshift(File.expand_path('../lib', File.realpath(__dir__)))
 require 'foobar'
 
 Foobar::Application.run(argv: ARGV)

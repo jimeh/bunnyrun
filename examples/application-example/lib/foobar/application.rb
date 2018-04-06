@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bunnyrun'
+
 require 'foobar/version'
 
 module Foobar
