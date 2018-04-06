@@ -9,3 +9,15 @@ Documentation:
 
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
+Metrics/ModuleLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
+RSpec/FilePath:
+  Exclude:
+    - 'spec/lib/bunnyrun_spec.rb'
