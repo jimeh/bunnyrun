@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'bunnyrun/version'
 
@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.51'
+  spec.add_development_dependency 'rubocop-rspec', '~> 1.24'
 
   spec.add_runtime_dependency 'bunny', '~> 2.6'
   spec.add_runtime_dependency 'trollop', '~> 2.1.2'
