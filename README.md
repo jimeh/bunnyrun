@@ -1,4 +1,4 @@
-# BunnyRun
+# BunnyRun [![Build Status](https://api.travis-ci.org/jimeh/bunnyrun.svg)](https://travis-ci.org/jimeh/bunnyrun)
 
 A work in progress easy to use runtime for [Bunny](http://rubybunny.info/)-based
 AMQP consumers.
