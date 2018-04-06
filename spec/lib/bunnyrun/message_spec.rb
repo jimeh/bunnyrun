@@ -7,7 +7,6 @@ module BunnyRun
   RSpec.describe Message do
     let(:delivery_mode) { 2 }
     let(:delivery_tag) { rand(1000) }
-    let(:manual_ack) { true }
     let(:routing_key) { 'ping' }
 
     let(:channel) do
@@ -15,7 +14,7 @@ module BunnyRun
     end
 
     let(:consumer) do
-      instance_double(::Bunny::Consumer, no_ack: !manual_ack)
+      instance_double(::Bunny::Consumer, no_ack: false)
     end
 
     let(:delivery_info) do
@@ -37,6 +36,36 @@ module BunnyRun
 
     let(:payload) do
       '{"hello": "world"}'
+    end
+
+    describe '#delivery_info' do
+      it 'returns message delivery_info' do
+        msg = Message.new(delivery_info, properties, payload)
+
+        result = msg.delivery_info
+
+        expect(result).to eq(delivery_info)
+      end
+    end
+
+    describe '#properties' do
+      it 'returns message properties' do
+        msg = Message.new(delivery_info, properties, payload)
+
+        result = msg.properties
+
+        expect(result).to eq(properties)
+      end
+    end
+
+    describe '#payload' do
+      it 'returns message payload' do
+        msg = Message.new(delivery_info, properties, payload)
+
+        result = msg.payload
+
+        expect(result).to eq(payload)
+      end
     end
 
     describe '#channel' do
