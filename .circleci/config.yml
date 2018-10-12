@@ -1,8 +1,18 @@
 version: 2
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - ruby-2.3-tests
+      - ruby-2.4-tests
+      - ruby-2.5-tests
+  audit:
+    jobs:
+      - audit
 jobs:
-  build:
+  ruby-2.3-tests: &test-template
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.3-node-browsers
     steps:
       - checkout
       - run:
@@ -12,5 +22,32 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
       - run:
-          name: Run rspec in parallel
+          name: Run rspec
+          command: |
+            bundle exec rspec --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress
+      - store_test_results:
+          path: test_results
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop
+  ruby-2.4-tests:
+    <<: *test-template
+    docker:
+      - image: circleci/ruby:2.4-node-browsers
+  ruby-2.5-tests:
+    <<: *test-template
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+  audit:
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - run:
+          name: Run bundle audit
           command: bundle audit check --update
