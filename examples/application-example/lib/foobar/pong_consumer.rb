@@ -19,6 +19,7 @@ module Foobar
       message.ack
 
       return unless options.success_message
+
       logger.info("#{self.class}: #{options.success_message}")
     end
   end

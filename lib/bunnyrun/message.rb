@@ -19,6 +19,7 @@ module BunnyRun
 
     def acked?
       return unless manual_ack?
+
       @acked
     end
 
