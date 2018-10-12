@@ -21,6 +21,7 @@ module BunnyRun
 
       def queue(name = nil, attrs = {})
         return @queue if name.nil?
+
         @queue = { name: name, attrs: attrs }
       end
 
@@ -34,11 +35,13 @@ module BunnyRun
 
       def manual_ack(value = nil)
         return @manual_ack || false if value.nil?
+
         @manual_ack = value
       end
 
       def prefetch(count = nil)
         return @prefetch if count.nil?
+
         @prefetch = count
       end
 
